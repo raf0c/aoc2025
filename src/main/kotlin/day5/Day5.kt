@@ -1,5 +1,7 @@
 package day5
 
+import kotlin.collections.map
+
 class Day5(
     private val input: List<String>
 ) {
@@ -73,6 +75,28 @@ class Day5(
             }
         println("Total unique count: $totalUniqueCount")
         return totalUniqueCount
+    }
+
+    fun part2b(): Long {
+        val countAllInclusiveIds = input
+            .takeWhile { line -> line.isNotEmpty() }
+            .map { stringRange ->
+                stringRange.split('-').let { (from, to) ->
+                    from.toLong()..to.toLong()
+                }
+            }
+            .sortedBy { idRange -> idRange.first }
+            .fold(mutableListOf<LongRange>()) { acc, range ->
+                if (acc.isEmpty() || acc.last().last < range.first - 1) {
+                    acc.add(range)
+                } else {
+                    // the current range overlaps or is adjacent to the last merged range,
+                    // so update the last merged range to cover both by extending its end to the maximum of the two ends.
+                    acc[acc.lastIndex] = acc.last().first..maxOf(acc.last().last, range.last)
+                }
+                acc
+            }.sumOf { it.last - it.first + 1 }
+        return countAllInclusiveIds
     }
 }
 

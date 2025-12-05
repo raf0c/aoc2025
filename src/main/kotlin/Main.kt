@@ -14,6 +14,6 @@ fun main() {
 //    println("Part 1: ${day3.part1()}")
 //    println("Part 2: ${day3.part2()}")
     val day5 = Day5(Day5.example)
-    //println("Part 1: ${day5.part1()}")
-    println("Part 2: ${day5.part2()}")
+    println("Part 1: ${day5.part1()}")
+    println("Part 2: ${day5.part2b()}")
 }
