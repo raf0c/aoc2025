@@ -38,15 +38,7 @@ class Day5(
             from..to
         }
         val availableIds = input.subList(input.indexOf("") + 1, input.size).map { str -> str.toLong() }
-        val x = availableIds.mapNotNull { availableId: Long ->
-            val isInFreshIds = freshIds.any { freshIdRange -> availableId in freshIdRange }
-            if (isInFreshIds) {
-                availableId
-            } else {
-                null
-            }
-        }
-        return x.count()
+        return availableIds.count { availableId -> freshIds.any { freshIdRange -> availableId in freshIdRange } }
     }
 
     fun part2(): Long {
